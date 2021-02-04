@@ -11,7 +11,7 @@
 
 ## Environment
 
-![ENV](https://github.com/kr-pushpendra/Ansible/blob/master/env.PNG)
+![ENV](https://github.com/kr-pushpendra/Ansible/blob/master/img/env.PNG)
 
 ## Steps to Follow:
 
@@ -20,21 +20,21 @@
 - Ansible Host: 10.0.0.3  
 - Add IP addresses to the /etc/hosts file. </br>
 
-![PING](https://github.com/kr-pushpendra/Ansible/blob/master/hosts.PNG)
+![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/hosts.PNG)
 
 - Check Internet connection on all nodes </br>
 
-![PING](https://github.com/kr-pushpendra/Ansible/blob/master/ping.PNG)
+![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/ping.PNG)
 
 - Setup ssh-keygen on Ansible Host. </br>
     > $ ssh-keygen </br>
     > It will store the ssh-keys in .ssh directory.
     
-![SSH](https://github.com/kr-pushpendra/Ansible/blob/master/ssh.PNG)    
+![SSH](https://github.com/kr-pushpendra/Ansible/blob/master/img/ssh.PNG)    
     
 - Check ssh is working.
   
-![SSH1](https://github.com/kr-pushpendra/Ansible/blob/master/ssh1.PNG)  
+![SSH1](https://github.com/kr-pushpendra/Ansible/blob/master/img/ssh1.PNG)  
 
 - Install Ansible on Ansible Host machine. <br/>
 
@@ -50,7 +50,7 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 ### Step 3: Update username and password in ini/k8s.ini inventory file. <br/>
 - Update ansible_user and ansible_sudo_pass if used other than "pushp" and "1234". <br/>
 
-![ini](https://github.com/kr-pushpendra/Ansible/blob/master/ini.PNG) 
+![ini](https://github.com/kr-pushpendra/Ansible/blob/master/img/ini.PNG) 
 
 ### Step 4: Workflow of the playbook
 - Inventory file location: ini/k8s.ini
@@ -82,6 +82,6 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
   > $ ssh 10.0.0.9 <br/>
   > Run "kubectl get nodes" <br/>
 
-![Cluster](https://github.com/kr-pushpendra/Ansible/blob/master/cluster.PNG)
+![Cluster](https://github.com/kr-pushpendra/Ansible/blob/master/img/cluster.PNG)
  
 

@@ -1,0 +1,14 @@
+---
+ - name: Creating token 
+   shell: kubeadm token create --print-join-command
+   register: join_command
+   
+ - name: Saving token
+   shell: echo "{{ join_command.stdout_lines[0] }}" > node_joined.txt
+  
+ - name: Fetching token file to the ansible node
+   become: yes
+   fetch:
+     src: "/home/{{ansible_user}}/node_joined.txt"
+     dest: /tmp/node_joined.txt
+     

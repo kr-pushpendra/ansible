@@ -1,0 +1,136 @@
+---
+- name: Turn off Swap Memory
+  shell: swapoff -a
+
+- name: Disable SWAP in fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+
+- name: Update packages
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Create containerd.conf file
+  file:
+    path: /etc/modules-load.d/containerd.conf
+    state: touch
+
+- name: Install and configure prerequisites for CRI<1/3>
+  lineinfile:
+    path: /etc/modules-load.d/containerd.conf
+    line: '{{ item }}'
+  with_items: 
+    - 'overlay'
+    - 'br_netfilter'
+    
+- name: Execute command <I/II>
+  become: yes
+  shell: modprobe overlay
+
+- name: Execute command <II/II>
+  become: yes
+  shell: modprobe br_netfilter
+
+- name: Create 99-kubernetes-cri.conf file
+  file:
+    path: /etc/sysctl.d/99-kubernetes-cri.conf
+    state: touch
+
+- name: Setup required sysctl params, these persist accross reboots. <2/3>
+  lineinfile:
+    path: /etc/sysctl.d/99-kubernetes-cri.conf
+    line: '{{ item }}'
+  with_items:
+    - 'net.bridge.bridge-nf-call-iptables  = 1'
+    - 'net.ipv4.ip_forward                 = 1'
+    - 'net.bridge.bridge-nf-call-ip6tables = 1'
+
+- name: Apply sysctl params without reboot
+  become: yes
+  shell: sysctl --system
+
+- name: Update
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Install containerd
+  become: yes
+  apt:
+    name: containerd
+    state: latest
+
+- name: Configure containerd <1/2>
+  file: 
+    path: /etc/containerd
+    state: directory
+
+- name: Configure containerd <2/2>
+  become: yes
+  shell: containerd config default
+
+- name: Restart containerd
+  become: true 
+  shell: systemctl restart containerd
+
+# Installing Kubeam, kubelet and kubectl
+
+- name: Installing apt-transport-https
+  become: yes
+  apt:
+    update_cache: yes
+    state: present
+    pkg:
+    - apt-transport-https 
+    - curl 
+
+- name: Downloading google packages
+  become: yes
+  ansible.builtin.apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: Creating kubernetes.list
+  file:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    state: touch
+
+- name: Copying files
+  become: yes
+  lineinfile:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    line: 'deb https://apt.kubernetes.io/ kubernetes-xenial main'
+
+- name: Update and upgrade
+  become: yes
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Installing kubelet kubeadm kubectl
+  become: yes
+  apt: 
+    pkg:
+    - kubelet=1.20.2-00
+    - kubectl=1.20.2-00
+    - kubeadm=1.20.2-00
+    
+- name: Prevent kubelet kubeadm kubectl being from update
+  become: yes
+  dpkg_selections:
+    selection: hold
+    name: '{{ item }}'
+  with_items:
+    - kubelet
+    - kubeadm
+    - kubectl
+    
+    
+
+ 
+
+
+

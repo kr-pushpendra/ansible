@@ -1,0 +1,27 @@
+---
+ - name: Installing k8s_common_base
+   hosts: all
+   become: yes
+   roles:
+     - k8s_common_base
+
+ - name: Configuring CRI and CNI on master 
+   hosts: master
+   become: yes
+   roles:
+     - k8s_master
+   
+ - name: Generate token 
+   hosts: master
+   become: yes
+   roles: 
+     - k8s_master_token
+ 
+ - name: Adding worker to cluster  
+   hosts: worker
+   become: yes
+   roles:
+     - role: k8s_join_worker
+
+
+

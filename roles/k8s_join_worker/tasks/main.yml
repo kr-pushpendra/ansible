@@ -1,0 +1,14 @@
+---
+# tasks file for k8s_joinworker
+
+ - name: Copying the token from anisble host to worker host
+   copy:
+     src: "/tmp/node_joined.txt/10.0.0.9/home/{{ansible_user}}/node_joined.txt"
+     dest: "/home/{{ansible_user}}/node_joined.sh"
+     owner: "{{ ansible_user }}"
+     group: "{{ ansible_user }}"
+     mode: 0744
+
+ - name: Joining the worker node to the cluster
+   become: yes
+   shell: ./node_joined.sh

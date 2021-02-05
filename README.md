@@ -7,7 +7,7 @@ Ansible is an IT automation tool. It can configure systems, deploy software, and
 Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications. <br/>
 https://kubernetes.io/ 
 
-## Architecture
+# Architecture
 
 ![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/Arch1.PNG)
 

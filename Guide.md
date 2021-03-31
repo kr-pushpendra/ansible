@@ -22,7 +22,7 @@
 
 ![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/hosts.PNG)
 
-- Check Internet connection on all nodes </br>
+- Checking connectivity between VMs </br>
 
 ![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/ping.PNG)
 

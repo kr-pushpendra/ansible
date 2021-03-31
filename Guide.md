@@ -6,6 +6,7 @@
 ##### RAM: 2Gb (on each VM) <br/>
 ##### CPU: 2 (on each VM) <br/>
 ##### Hard Disk Space : 10 Gb (on each VM) <br/>
+##### Internet Connectivity required <br/>
 ##### Assign static IP on all nodes. </br>
 ##### Kubernetes version : 1.20.2-00 &nbsp; CRI: containerd &nbsp; CNI: Flannel
 
@@ -18,7 +19,7 @@
 ### Setp 1: Setting up Environment
 - Install Ubuntu Server 18.04.5 LTS (Bionic Beaver) on all four virtual machines. <br/>
 - Ansible Host: 10.0.0.3  
-- Add IP addresses to the /etc/hosts file. </br>
+- Add IP addresses to the /etc/hosts file. (Optional) </br>
 
 ![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/hosts.PNG)
 

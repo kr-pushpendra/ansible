@@ -23,7 +23,7 @@
 
 ![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/hosts.PNG)
 
-- Checking connectivity between VMs </br>
+- Check connectivity between VMs </br>
 
 ![PING](https://github.com/kr-pushpendra/Ansible/blob/master/img/ping.PNG)
 
